@@ -4,7 +4,6 @@ import com.tw.tdd.exam.exception.StoreException;
 import com.tw.tdd.exam.pojo.Bag;
 import com.tw.tdd.exam.pojo.Locker;
 import com.tw.tdd.exam.pojo.Ticket;
-import com.tw.tdd.exam.pojo.Waiter;
 import com.tw.tdd.exam.type.BagType;
 import com.tw.tdd.exam.type.LockerType;
 import org.junit.jupiter.api.Assertions;
