@@ -199,4 +199,20 @@ public class NormalCustomerTest {
             xiaoY.getBag(ticket);
         });
     }
+    
+    @Test
+    public void shoud_throw_exception_when_get_bag_given_invalid_ticket() throws StoreException, PickException {
+        Locker mLock = new Locker(LockerType.L, 1);
+        SuperLockerRobot primaryLockerRobot = new SuperLockerRobot();
+        primaryLockerRobot.manage(mLock);
+        
+        Waiter xiaoY = new Waiter();
+        xiaoY.manage(primaryLockerRobot);
+        Bag bag = new Bag(BagType.L);
+        xiaoY.store(bag);
+        
+        Assertions.assertThrows(PickException.class, () -> {
+            xiaoY.getBag(new Ticket("invalid"));
+        });
+    }
 }
