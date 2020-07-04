@@ -41,4 +41,8 @@ public class Locker implements Storeable {
     public Bag getBag(Ticket ticket) {
         return bagMap.get(ticket);
     }
+    
+    public Bag takeBag(Ticket ticket) {
+        return bagMap.get(ticket);
+    }
 }

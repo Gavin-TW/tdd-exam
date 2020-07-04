@@ -32,4 +32,13 @@ public class PrimaryLockerRobot implements Storeable {
         }
         throw new StoreException(MessageContent.NO_CAPACITY);
     }
+    
+    public Bag takeBag(Ticket ticket) throws StoreException {
+        for (Locker locker : lockers) {
+            if (locker.getBagMap().get(ticket) != null) {
+                return locker.getBagMap().get(ticket);
+            }
+        }
+        throw new StoreException(MessageContent.BAG_NOT_FPUND);
+    }
 }

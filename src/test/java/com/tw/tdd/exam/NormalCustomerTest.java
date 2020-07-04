@@ -8,6 +8,8 @@ import com.tw.tdd.exam.type.BagType;
 import com.tw.tdd.exam.type.LockerType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 /**
  * @author Gavin
@@ -136,5 +138,23 @@ public class NormalCustomerTest {
         Assertions.assertThrows(StoreException.class, () -> {
             xiaoY.store(bag3);
         });
+    }
+    
+    
+    @ParameterizedTest
+    @CsvSource({
+            LockerType.S,
+            LockerType.M,
+            LockerType.L,
+    })
+    public void shoud_return_bag_when_get_bag_given_ticket(String ticketType) throws StoreException {
+        Locker sLock = new Locker(ticketType, 1);
+        
+        Waiter xiaoY = new Waiter();
+        xiaoY.manage(sLock);
+        Bag bag = new Bag(BagType.S);
+        Ticket result = xiaoY.store(bag);
+        
+        Assertions.assertEquals(result.getLockerType(), ticketType);
     }
 }
