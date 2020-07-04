@@ -127,4 +127,20 @@ public class VIPCustomerTest {
         
         Assertions.assertEquals(bag, result);
     }
+    
+    @Test
+    public void shoud_throw_exception_when_get_bag_given_Lticket_and_not_VIP_and_lockerRobotManage() throws StoreException {
+        Locker mLock = new Locker(LockerType.L, 1);
+        SuperLockerRobot primaryLockerRobot = new SuperLockerRobot();
+        primaryLockerRobot.manage(mLock);
+        
+        LockerRobotManage lockerRobotManage = new LockerRobotManage();
+        lockerRobotManage.manage(primaryLockerRobot);
+        Bag bag = new Bag(BagType.L);
+        Ticket ticket = lockerRobotManage.store(bag);
+    
+        Assertions.assertThrows(PickException.class, () -> {
+            lockerRobotManage.getBag(ticket, null);
+        });
+    }
 }
