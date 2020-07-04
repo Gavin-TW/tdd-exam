@@ -166,4 +166,19 @@ public class NormalCustomerTest {
         
         Assertions.assertEquals(bag, result);
     }
+    
+    @Test
+    public void shoud_return_Lbag_when_get_bag_given_Lticket() throws StoreException {
+        Locker mLock = new Locker(LockerType.L, 1);
+        SuperLockerRobot primaryLockerRobot = new SuperLockerRobot();
+        primaryLockerRobot.manage(mLock);
+        
+        Waiter xiaoY = new Waiter();
+        xiaoY.manage(primaryLockerRobot);
+        Bag bag = new Bag(BagType.L);
+        Ticket ticket = xiaoY.store(bag);
+        Bag result = xiaoY.getBag(ticket);
+        
+        Assertions.assertEquals(bag, result);
+    }
 }
