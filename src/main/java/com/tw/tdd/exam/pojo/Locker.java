@@ -3,6 +3,7 @@ package com.tw.tdd.exam.pojo;
 import com.tw.tdd.exam.Storeable;
 import com.tw.tdd.exam.exception.StoreException;
 import com.tw.tdd.exam.type.MessageContent;
+import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.Map;
 /**
  * @author Gavin
  */
+@Data
 public class Locker implements Storeable {
     
     private Map<Ticket, Bag> bagMap = new HashMap<>();

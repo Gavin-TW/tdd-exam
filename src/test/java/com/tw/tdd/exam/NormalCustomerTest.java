@@ -93,4 +93,29 @@ public class NormalCustomerTest {
         });
         
     }
+    
+    @Test
+    public void should_return_LTicket_when_store_bag_by_waiter_given_LBag_2_LLockers_has_capacity_superLockerRobot() throws StoreException {
+        Locker lLock1 = new Locker(LockerType.L, 2);
+        Locker lLock2 = new Locker(LockerType.L, 10);
+        
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot();
+        superLockerRobot.manage(lLock1);
+        superLockerRobot.manage(lLock2);
+        Waiter xiaoY = new Waiter();
+        xiaoY.manage(superLockerRobot);
+        Bag bag1 = new Bag(BagType.L);
+        Bag bag2 = new Bag(BagType.L);
+        Bag bag3 = new Bag(BagType.L);
+        
+        xiaoY.store(bag1);
+        xiaoY.store(bag2);
+        
+        Ticket result = xiaoY.store(bag3);
+    
+        Assertions.assertEquals(LockerType.L, result.getLockerType());
+        Assertions.assertEquals(bag3, superLockerRobot.getLockers().get(1).getBag(result));
+        
+        
+    }
 }
