@@ -32,7 +32,11 @@ public class Locker implements Storeable {
         }
     }
     
-    private boolean checkCapacity() {
+    public boolean checkCapacity() {
         return capacity > bagMap.size();
+    }
+    
+    public Bag getBag(Ticket ticket) {
+        return bagMap.get(ticket);
     }
 }

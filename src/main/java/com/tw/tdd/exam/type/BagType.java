@@ -5,4 +5,6 @@ package com.tw.tdd.exam.type;
  */
 public interface BagType {
     String S = "S";
+    String M = "M";
+    String L = "L";
 }
