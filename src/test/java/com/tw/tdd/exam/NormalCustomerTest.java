@@ -1,5 +1,6 @@
 package com.tw.tdd.exam;
 
+import com.tw.tdd.exam.exception.PickException;
 import com.tw.tdd.exam.exception.StoreException;
 import com.tw.tdd.exam.pojo.Bag;
 import com.tw.tdd.exam.pojo.Locker;
@@ -140,7 +141,7 @@ public class NormalCustomerTest {
     
     
     @Test
-    public void shoud_return_Sbag_when_get_bag_given_Sticket() throws StoreException {
+    public void shoud_return_Sbag_when_get_bag_given_Sticket() throws StoreException, PickException {
         Locker sLock = new Locker(LockerType.S, 1);
         
         Waiter xiaoY = new Waiter();
@@ -153,11 +154,11 @@ public class NormalCustomerTest {
     }
     
     @Test
-    public void shoud_return_Mbag_when_get_bag_given_Mticket() throws StoreException {
+    public void shoud_return_Mbag_when_get_bag_given_Mticket() throws StoreException, PickException {
         Locker mLock = new Locker(LockerType.M, 1);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         primaryLockerRobot.manage(mLock);
-    
+        
         Waiter xiaoY = new Waiter();
         xiaoY.manage(primaryLockerRobot);
         Bag bag = new Bag(BagType.M);
@@ -168,7 +169,7 @@ public class NormalCustomerTest {
     }
     
     @Test
-    public void shoud_return_Lbag_when_get_bag_given_Lticket() throws StoreException {
+    public void shoud_return_Lbag_when_get_bag_given_Lticket() throws StoreException, PickException {
         Locker mLock = new Locker(LockerType.L, 1);
         SuperLockerRobot primaryLockerRobot = new SuperLockerRobot();
         primaryLockerRobot.manage(mLock);
@@ -180,5 +181,22 @@ public class NormalCustomerTest {
         Bag result = xiaoY.getBag(ticket);
         
         Assertions.assertEquals(bag, result);
+    }
+    
+    @Test
+    public void shoud_throw_exception_when_get_bag_given_waiter_make_a_mistake() throws StoreException, PickException {
+        Locker mLock = new Locker(LockerType.L, 1);
+        SuperLockerRobot primaryLockerRobot = new SuperLockerRobot();
+        primaryLockerRobot.manage(mLock);
+        
+        Waiter xiaoY = new Waiter();
+        xiaoY.manage(primaryLockerRobot);
+        Bag bag = new Bag(BagType.L);
+        Ticket ticket = xiaoY.store(bag);
+        
+        Assertions.assertThrows(PickException.class, () -> {
+            xiaoY.makeAMistakeWhenGetBag();
+            xiaoY.getBag(ticket);
+        });
     }
 }

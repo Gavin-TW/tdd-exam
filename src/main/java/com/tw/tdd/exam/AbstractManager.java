@@ -1,5 +1,6 @@
 package com.tw.tdd.exam;
 
+import com.tw.tdd.exam.exception.PickException;
 import com.tw.tdd.exam.exception.StoreException;
 import com.tw.tdd.exam.pojo.Bag;
 import com.tw.tdd.exam.pojo.Locker;
@@ -44,7 +45,7 @@ public class AbstractManager {
         }
     }
     
-    public Bag getBag(Ticket ticket) throws StoreException {
+    public Bag getBag(Ticket ticket) throws PickException {
         switch (ticket.getLockerType()) {
             case LockerType.S:
                 return locker.takeBag(ticket);
@@ -53,7 +54,7 @@ public class AbstractManager {
             case LockerType.L:
                 return superLockerRobot.takeBag(ticket);
             default:
-                throw new StoreException(MessageContent.TICKET_NOT_SUPPORT);
+                throw new PickException(MessageContent.TICKET_NOT_SUPPORT);
         }
     }
 }

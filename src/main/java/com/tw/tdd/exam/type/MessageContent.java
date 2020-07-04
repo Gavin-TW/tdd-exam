@@ -10,4 +10,5 @@ public interface MessageContent {
     String NOT_VIP = "不是VIP 客户";
     String TICKET_NOT_SUPPORT = "不支持该票据类型";
     String BAG_NOT_FPUND = "没有找到包";
+    String WAITER_MISTAKE = "票型号不对";
 }

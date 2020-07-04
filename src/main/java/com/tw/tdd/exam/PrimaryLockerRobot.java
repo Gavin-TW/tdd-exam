@@ -1,5 +1,6 @@
 package com.tw.tdd.exam;
 
+import com.tw.tdd.exam.exception.PickException;
 import com.tw.tdd.exam.exception.StoreException;
 import com.tw.tdd.exam.pojo.Bag;
 import com.tw.tdd.exam.pojo.Locker;
@@ -33,12 +34,12 @@ public class PrimaryLockerRobot implements Storeable {
         throw new StoreException(MessageContent.NO_CAPACITY);
     }
     
-    public Bag takeBag(Ticket ticket) throws StoreException {
+    public Bag takeBag(Ticket ticket) throws PickException {
         for (Locker locker : lockers) {
             if (locker.getBagMap().get(ticket) != null) {
                 return locker.getBagMap().get(ticket);
             }
         }
-        throw new StoreException(MessageContent.BAG_NOT_FPUND);
+        throw new PickException(MessageContent.BAG_NOT_FPUND);
     }
 }
