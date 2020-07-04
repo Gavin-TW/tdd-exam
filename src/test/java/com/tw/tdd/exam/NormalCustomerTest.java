@@ -32,6 +32,7 @@ public class NormalCustomerTest {
         Locker sLock = new Locker(LockerType.S, 0);
         
         Waiter xiaoY = new Waiter();
+        xiaoY.manage(sLock);
         Bag bag = new Bag(BagType.S);
         
         Assertions.assertThrows(StoreException.class, () -> {
@@ -91,7 +92,6 @@ public class NormalCustomerTest {
         Assertions.assertThrows(StoreException.class, () -> {
             xiaoY.store(bag);
         });
-        
     }
     
     @Test
@@ -112,10 +112,30 @@ public class NormalCustomerTest {
         xiaoY.store(bag2);
         
         Ticket result = xiaoY.store(bag3);
-    
+        
         Assertions.assertEquals(LockerType.L, result.getLockerType());
         Assertions.assertEquals(bag3, superLockerRobot.getLockers().get(1).getBag(result));
+    }
+    
+    @Test
+    public void should_throw_exception_when_store_bag_by_waiter_given_LBag_2_LLockers_has_no_capacity() throws StoreException {
+        Locker lLock1 = new Locker(LockerType.L, 1);
+        Locker lLock2 = new Locker(LockerType.L, 1);
         
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot();
+        superLockerRobot.manage(lLock1);
+        superLockerRobot.manage(lLock2);
+        Waiter xiaoY = new Waiter();
+        xiaoY.manage(superLockerRobot);
+        Bag bag1 = new Bag(BagType.L);
+        Bag bag2 = new Bag(BagType.L);
+        Bag bag3 = new Bag(BagType.L);
         
+        xiaoY.store(bag1);
+        xiaoY.store(bag2);
+        
+        Assertions.assertThrows(StoreException.class, () -> {
+            xiaoY.store(bag3);
+        });
     }
 }
