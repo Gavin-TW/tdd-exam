@@ -57,4 +57,23 @@ public class NormalCustomerTest {
         Assertions.assertEquals(bag, primaryLockerRobot.getLockers().get(0).getBag(ticket));
         
     }
+    
+    @Test
+    public void should_return_MTicket_when_store_bag_by_waiter_given_MBag_2_MLockers_only_1_has_capacity_primaryLockerRobot() throws StoreException {
+        Locker mLock1 = new Locker(LockerType.M, 0);
+        Locker mLock2 = new Locker(LockerType.M, 2);
+        
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        primaryLockerRobot.manage(mLock1);
+        primaryLockerRobot.manage(mLock2);
+        Waiter xiaoY = new Waiter();
+        xiaoY.manage(primaryLockerRobot);
+        Bag bag = new Bag(BagType.M);
+        
+        Ticket ticket = xiaoY.store(bag);
+        
+        Assertions.assertEquals(LockerType.M, ticket.getLockerType());
+        Assertions.assertEquals(bag, primaryLockerRobot.getLockers().get(1).getBag(ticket));
+        
+    }
 }
