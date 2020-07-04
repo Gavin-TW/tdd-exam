@@ -8,8 +8,6 @@ import com.tw.tdd.exam.type.BagType;
 import com.tw.tdd.exam.type.LockerType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 /**
  * @author Gavin
@@ -141,20 +139,31 @@ public class NormalCustomerTest {
     }
     
     
-    @ParameterizedTest
-    @CsvSource({
-            LockerType.S,
-            LockerType.M,
-            LockerType.L,
-    })
-    public void shoud_return_bag_when_get_bag_given_ticket(String ticketType) throws StoreException {
-        Locker sLock = new Locker(ticketType, 1);
+    @Test
+    public void shoud_return_Sbag_when_get_bag_given_Sticket() throws StoreException {
+        Locker sLock = new Locker(LockerType.S, 1);
         
         Waiter xiaoY = new Waiter();
         xiaoY.manage(sLock);
         Bag bag = new Bag(BagType.S);
-        Ticket result = xiaoY.store(bag);
+        Ticket ticket = xiaoY.store(bag);
+        Bag result = xiaoY.getBag(ticket);
         
-        Assertions.assertEquals(result.getLockerType(), ticketType);
+        Assertions.assertEquals(bag, result);
+    }
+    
+    @Test
+    public void shoud_return_Mbag_when_get_bag_given_Mticket() throws StoreException {
+        Locker mLock = new Locker(LockerType.M, 1);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        primaryLockerRobot.manage(mLock);
+    
+        Waiter xiaoY = new Waiter();
+        xiaoY.manage(primaryLockerRobot);
+        Bag bag = new Bag(BagType.M);
+        Ticket ticket = xiaoY.store(bag);
+        Bag result = xiaoY.getBag(ticket);
+        
+        Assertions.assertEquals(bag, result);
     }
 }

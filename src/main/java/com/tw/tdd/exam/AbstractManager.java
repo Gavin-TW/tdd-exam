@@ -44,7 +44,7 @@ public class AbstractManager {
         }
     }
     
-    public Bag takeBag(Ticket ticket) throws StoreException {
+    public Bag getBag(Ticket ticket) throws StoreException {
         switch (ticket.getLockerType()) {
             case LockerType.S:
                 return locker.takeBag(ticket);
