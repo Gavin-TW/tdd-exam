@@ -96,4 +96,19 @@ public class VIPCustomerTest {
             lockerRobotManage.store(bag, new VIPCard());
         });
     }
+    
+    @Test
+    public void should_throw_exception_when_store_given_Lockers_has_capacity_and_LockerRobotManage_and_NOT_VIP() throws StoreException {
+        Locker lLock = new Locker(LockerType.L, 1);
+        
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot();
+        superLockerRobot.manage(lLock);
+        LockerRobotManage lockerRobotManage = new LockerRobotManage();
+        lockerRobotManage.manage(superLockerRobot);
+        Bag bag = new Bag(BagType.L);
+        
+        Assertions.assertThrows(StoreException.class, () -> {
+            lockerRobotManage.store(bag, null);
+        });
+    }
 }

@@ -104,6 +104,14 @@ When: store bag
 
 Then : alert no capacity
 
+---
+
+Given :  bag, not VIP ,LockerRobotManage, S locker ,primaryLockerRobot, M locker  , superLockerRobot, L locker has no capacity, 
+
+When: store bag
+
+Then : alert no authorization
+
 ## get bag
 
 given:   ticket, people 
