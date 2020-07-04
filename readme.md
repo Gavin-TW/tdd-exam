@@ -2,7 +2,7 @@
 
 ## Store bag
 
-Given : S bag, People ,S Locker has capacity, M Locker, L locker 
+Given : S bag, People ,S Locker has capacity
 
 when : store bag
 
@@ -10,7 +10,7 @@ Then :people  store bag in  S locker and return S ticket
 
 ---
 
-Given : S bag, People ,S Locker has no capacity, M Locker, L locker 
+Given : S bag, People ,S Locker has no capacity
 
 when : store bag
 
