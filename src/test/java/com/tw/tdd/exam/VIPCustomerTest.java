@@ -38,4 +38,18 @@ public class VIPCustomerTest {
             lockerRobotManage.store(bag, new VIPCard());
         });
     }
+    
+    @Test
+    public void should_return_MTicket_when_store_given_MLockers_has_capacity_LockerRobotManage() throws StoreException {
+        Locker mLock = new Locker(LockerType.M, 1);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        primaryLockerRobot.manage(mLock);
+        
+        LockerRobotManage lockerRobotManage = new LockerRobotManage();
+        lockerRobotManage.manage(primaryLockerRobot);
+        Bag bag = new Bag(BagType.M);
+        Ticket result = lockerRobotManage.store(bag, new VIPCard());
+        
+        Assertions.assertEquals(result.getLockerType(), LockerType.M);
+    }
 }
