@@ -25,4 +25,17 @@ public class VIPCustomerTest {
         
         Assertions.assertEquals(result.getLockerType(), LockerType.S);
     }
+    
+    @Test
+    public void should_throw_exception_when_store_given_SLockers_has_no_capacity_LockerRobotManage() throws StoreException {
+        Locker sLock = new Locker(LockerType.S, 0);
+        
+        LockerRobotManage lockerRobotManage = new LockerRobotManage();
+        lockerRobotManage.manage(sLock);
+        Bag bag = new Bag(BagType.S);
+        
+        Assertions.assertThrows(StoreException.class, () -> {
+            lockerRobotManage.store(bag, new VIPCard());
+        });
+    }
 }
