@@ -1,5 +1,6 @@
 package com.tw.tdd.exam;
 
+import com.tw.tdd.exam.exception.PickException;
 import com.tw.tdd.exam.exception.StoreException;
 import com.tw.tdd.exam.pojo.Bag;
 import com.tw.tdd.exam.pojo.Locker;
@@ -110,5 +111,20 @@ public class VIPCustomerTest {
         Assertions.assertThrows(StoreException.class, () -> {
             lockerRobotManage.store(bag, null);
         });
+    }
+    
+    @Test
+    public void shoud_return_Lbag_when_get_bag_given_Lticket_and_VIP_card() throws StoreException, PickException {
+        Locker mLock = new Locker(LockerType.L, 1);
+        SuperLockerRobot primaryLockerRobot = new SuperLockerRobot();
+        primaryLockerRobot.manage(mLock);
+        
+        LockerRobotManage lockerRobotManage = new LockerRobotManage();
+        lockerRobotManage.manage(primaryLockerRobot);
+        Bag bag = new Bag(BagType.L);
+        Ticket ticket = lockerRobotManage.store(bag);
+        Bag result = lockerRobotManage.getBag(ticket, new VIPCard());
+        
+        Assertions.assertEquals(bag, result);
     }
 }
