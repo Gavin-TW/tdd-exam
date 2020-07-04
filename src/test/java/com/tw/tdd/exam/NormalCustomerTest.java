@@ -25,4 +25,16 @@ public class NormalCustomerTest {
         
         Assertions.assertEquals(result.getLockerType(), LockerType.S);
     }
+    
+    @Test
+    public void should_throw_exception_when_store_bag_by_waiter_given_SBag_SLocker_has_no_capacity() throws StoreException {
+        Locker sLock = new Locker(LockerType.S, 0);
+        
+        Waiter xiaoY = new Waiter(sLock);
+        Bag bag = new Bag(BagType.S);
+        
+        Assertions.assertThrows(StoreException.class,()->{
+          xiaoY.store(bag);
+        });
+    }
 }

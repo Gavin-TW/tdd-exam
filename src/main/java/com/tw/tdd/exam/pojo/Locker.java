@@ -2,6 +2,7 @@ package com.tw.tdd.exam.pojo;
 
 import com.tw.tdd.exam.Storeable;
 import com.tw.tdd.exam.exception.StoreException;
+import com.tw.tdd.exam.type.MessageContent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class Locker implements Storeable {
             bagMap.put(ticket, bag);
             return ticket;
         } else {
-            throw new StoreException(type + "型储物柜已满");
+            throw new StoreException(type + "型" + MessageContent.NO_CAPACITY);
         }
     }
     
