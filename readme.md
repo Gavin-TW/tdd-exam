@@ -153,9 +153,3 @@ When : get bag
 then :   alert "invalid ticket"
 
 ---
-
-Given: wrong configuration robot&manager
-
-When: store bag
-
-then : system issue
