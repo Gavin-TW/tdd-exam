@@ -40,7 +40,7 @@ public class VIPCustomerTest {
     }
     
     @Test
-    public void should_return_MTicket_when_store_given_MLockers_has_capacity_LockerRobotManage() throws StoreException {
+    public void should_return_MTicket_when_store_given_MLockers_has_capacity_LockerRobotManage_and_primaryLockerRobot() throws StoreException {
         Locker mLock = new Locker(LockerType.M, 1);
         PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
         primaryLockerRobot.manage(mLock);
@@ -54,15 +54,30 @@ public class VIPCustomerTest {
     }
     
     @Test
-    public void should_throw_exception_when_store_given_MLockers_has_no_capacity_and_LockerRobotManage_and_superLockerRobot() throws StoreException {
-        Locker sLock = new Locker(LockerType.S, 0);
+    public void should_throw_exception_when_store_given_MLockers_has_no_capacity_and_LockerRobotManage_and_primaryLockerRobot() throws StoreException {
+        Locker mLock = new Locker(LockerType.M, 0);
+        PrimaryLockerRobot primaryLockerRobot = new PrimaryLockerRobot();
+        primaryLockerRobot.manage(mLock);
         
         LockerRobotManage lockerRobotManage = new LockerRobotManage();
-        lockerRobotManage.manage(sLock);
-        Bag bag = new Bag(BagType.S);
+        lockerRobotManage.manage(primaryLockerRobot);
+        Bag bag = new Bag(BagType.M);
         
         Assertions.assertThrows(StoreException.class, () -> {
             lockerRobotManage.store(bag, new VIPCard());
         });
+    }
+    
+    @Test
+    public void should_return_LTicket_when_store_given_LLockers_has_capacity_and_LockerRobotManage_and_superLockerRobot() throws StoreException {
+        Locker lLock = new Locker(LockerType.L, 1);
+        
+        SuperLockerRobot superLockerRobot = new SuperLockerRobot();
+        superLockerRobot.manage(lLock);
+        LockerRobotManage lockerRobotManage = new LockerRobotManage();
+        lockerRobotManage.manage(superLockerRobot);
+        Bag bag = new Bag(BagType.L);
+        Ticket result = lockerRobotManage.store(bag, new VIPCard());
+        Assertions.assertEquals(result.getLockerType(), LockerType.L);
     }
 }
